@@ -28,6 +28,10 @@ public class TextoveRozhrani {
         this.hra = hra;
         this.plan = plan;
     }
+    
+    public TextoveRozhrani(IHra hra) {
+        this.hra = hra;
+    }
 
     /**
      *  Hlavní metoda hry. Vypíše úvodní text a pak opakuje čtení a zpracování
