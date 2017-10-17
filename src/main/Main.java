@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
@@ -35,20 +36,38 @@ public class Main extends Application {
         IHra hra = new Hra();
         BorderPane borderPane = new BorderPane();
         
-        Text centralText = new Text();
+        TextArea centralText = new TextArea();
         centralText.setText(hra.vratUvitani());
+        centralText.setEditable(false);
         borderPane.setCenter(centralText);
         
-        Label zadejPrikaz = new Label("Zadej prikaz:");
-        zadejPrikaz.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        Label zadejPrikazLabel = new Label("Zadej prikaz:");
+        zadejPrikazLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+      
+        TextField zadejPrikazTextArea = new TextField("...");
+        zadejPrikazTextArea.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String vstupniPrikaz = zadejPrikazTextArea.getText();
+                String odpovedHry = hra.zpracujPrikaz(vstupniPrikaz);
+                
+                centralText.appendText("\n" + vstupniPrikaz + "\n");
+                centralText.appendText("\n" + odpovedHry + "\n");
+                zadejPrikazTextArea.setText("");
+                
+                if(hra.konecHry()){
+                    zadejPrikazTextArea.setEditable(false);
+                    centralText.appendText(hra.vratEpilog());                              
+                }
+            }
+        });
         
         FlowPane dolniLista = new FlowPane();
         dolniLista.setAlignment(Pos.CENTER);
-        dolniLista.getChildren().add(zadejPrikaz);
+        dolniLista.getChildren().addAll(zadejPrikazLabel, zadejPrikazTextArea);
         borderPane.setBottom(dolniLista);
         
-        
-        Scene scene = new Scene(borderPane, 300, 250);
+        Scene scene = new Scene(borderPane, 500, 350);
         
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
