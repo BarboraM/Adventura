@@ -1,5 +1,10 @@
 package logika;
 
+import java.util.ArrayList;
+import java.util.List;
+import utils.Observer;
+import utils.Subject;
+
 
 /**
  *  Class HerniPlan - třída představující mapu a stav adventury.
@@ -12,9 +17,11 @@ package logika;
  *@author     Michael Kolling, Lubos Pavlicek, Jarmila Pavlickova
  *@version    pro školní rok 2015/2016
  */
-public class HerniPlan {
+public class HerniPlan implements Subject {
     
     private Prostor aktualniProstor;
+    
+    private List<Observer> listObserveru = new ArrayList<Observer>();
 
      /**
      *  Konstruktor který vytváří jednotlivé prostory a propojuje je pomocí východů.
@@ -29,17 +36,17 @@ public class HerniPlan {
      */
     private void zalozProstoryHry() {
         // vytvářejí se jednotlivé prostory
-        Prostor pokoj = new Prostor("pokoj", "pokoj");
-        Prostor koupelna = new Prostor("koupelna", "koupelna.\n Myslis, ze je spravna doba se ted sprchovat?");
-        Prostor sklad = new Prostor("sklad", "sklad");
-        Prostor jidelna = new Prostor("jidelna", "jidelna");
-        Prostor spolecenskaMistnost = new Prostor("spol.mistnost", "spol.mistnost");
-        Prostor schodiste = new Prostor("schodiste", "schodiste");
-        Prostor prechodovaKomora = new Prostor("prechod.komora", "prechodova komora. \nBunkr je hned u hlavni silnice, ta by nas mela dovest k letisti...\n");
+        Prostor pokoj = new Prostor("pokoj", "pokoj", 0, 0);
+        Prostor koupelna = new Prostor("koupelna", "koupelna.\n Myslis, ze je spravna doba se ted sprchovat?", 0, 0);
+        Prostor sklad = new Prostor("sklad", "sklad", 0, 0);
+        Prostor jidelna = new Prostor("jidelna", "jidelna", 0, 0);
+        Prostor spolecenskaMistnost = new Prostor("spol.mistnost", "spol.mistnost", 0, 0);
+        Prostor schodiste = new Prostor("schodiste", "schodiste", 0, 0);
+        Prostor prechodovaKomora = new Prostor("prechod.komora", "prechodova komora. \nBunkr je hned u hlavni silnice, ta by nas mela dovest k letisti...\n", 0, 0);
         Prostor silnice = new Prostor("silnice", "silnice. \nFajn, doufam, ze to odtud neni daleko, moc casu nemame...\n"
-                                        + "Pockat, neni tamhle auto?!");                                
+                                        + "Pockat, neni tamhle auto?!", 0, 0);                                
         Prostor auto = new Prostor("auto", "auto. \n Konecne! Odsud uz by to mel byt jen kousek.\n" + "Uz vidim letiste!!!\n" + 
-                                    "Dokazali jsme to!!!  Jsem v bezpeci!!");
+                                    "Dokazali jsme to!!!  Jsem v bezpeci!!", 0, 0);
        
        
         
@@ -95,6 +102,7 @@ public class HerniPlan {
     
     public Prostor getAktualniProstor() {
         return aktualniProstor;
+        
     }
     
     
@@ -105,8 +113,25 @@ public class HerniPlan {
      */
     public void setAktualniProstor(Prostor prostor) {
        aktualniProstor = prostor;
+       notifyObservers();
+       
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        listObserveru.remove(observer);
+    }
+
+    @Override
+    public void registerObserver(Observer observer) {
+        listObserveru.add(observer);
     }
     
-    
 
+    @Override
+    public void notifyObservers() {
+        for (Observer listObserveruItem : listObserveru) {
+            listObserveruItem.update();
+        }
+    }
 }

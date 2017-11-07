@@ -48,8 +48,8 @@ public class ProstorTest
      */
     @Test
     public  void testLzeProjit() {		
-        Prostor prostor1 = new Prostor("hala", "");
-        Prostor prostor2 = new Prostor("bufet", "");
+        Prostor prostor1 = new Prostor("hala", "", 20, 50);
+        Prostor prostor2 = new Prostor("bufet", "", 100, 150);
         prostor1.setVychod(prostor2);
         prostor2.setVychod(prostor1);
         assertEquals(prostor2, prostor1.vratSousedniProstor("bufet"));
@@ -60,7 +60,7 @@ public class ProstorTest
     @Test
     public void testVeci()
     {
-        logika.Prostor prostor1 = new logika.Prostor(null, null);
+        logika.Prostor prostor1 = new logika.Prostor(null, null, 0, 0);
         logika.Vec vec1 = new logika.Vec("a", true, true);
         logika.Vec vec2 = new logika.Vec("b", false, false);
         prostor1.vlozVec(vec1);
