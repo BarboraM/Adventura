@@ -37,64 +37,69 @@ class PrikazJdi implements IPrikaz {
      */ 
     @Override
     public String proved(String... parametry) {
+        String odpoved;
         if (parametry.length == 0) {
             // pokud chybí druhé slovo (sousední prostor), tak ....
-            return "Kam mam jit? Musis zadat jmeno vychodu";
+            odpoved = "Kam mam jit? Musis zadat jmeno vychodu";
         }else{
             String smer = parametry[0];
             // zkoušíme přejít do sousedního prostoru
             Prostor sousedniProstor = plan.getAktualniProstor().vratSousedniProstor(smer);
             if (sousedniProstor == null) {
-                return "Tam se odsud jít nedá! \n";
+                odpoved = "Tam se odsud jít nedá! \n";
             }else{
                 switch(sousedniProstor.getNazev()){
-                    case "prechodova komora":
-                        System.out.println("Vypada to, ze dvere ven jsou zamcene...");
+                    case "chodba":
+                        odpoved = "Vypada to, ze dvere ven jsou zamcene...";
                         if(inventar.jeVInventari("klice")){
-                            System.out.println("Zkusim pouzit ten klic z pokoje\n" + "Pasuje!\n");
-                            return sousedniProstor.dlouhyPopis();                            
+                            odpoved += "\nZkusim pouzit ten klic z pokoje\n" + "Pasuje!\n";
+                            odpoved += sousedniProstor.dlouhyPopis();  
+                            return odpoved;
                         }
                         else{
-                           return "Klic musi byt nekde v bunkru \n"; 
+                           odpoved += "Klic musi byt nekde v bunkru \n"; 
+                           return odpoved;
                         }
                     case "silnice":
                             if (inventar.jeVInventari("oblek")){
-                                System.out.println("Takze, nandat oblek a otevrit dvere...Doufam, ze me oblek vazne ochrani...\n3, 2, 1 otviram!");
+                                odpoved = "Takze, nandat oblek a otevrit dvere...Doufam, ze me oblek vazne ochrani...\n3, 2, 1 otviram!\n";
                                 plan.setAktualniProstor(sousedniProstor);
-                                return sousedniProstor.dlouhyPopis();
+                                odpoved += sousedniProstor.dlouhyPopis();
+                                return odpoved;
                             }else{
-                                     System.out.println("Fajn, snad to tam venku zvladnem...\n3, 2, 1 otviram!");
-                                     try {
-                                         Thread.sleep(1000);                 //1000 milliseconds is one second.
-                                        } catch(InterruptedException ex) {
-                                            Thread.currentThread().interrupt();
-                                        }
+                                     odpoved = "Fajn, snad to tam venku zvladnem...\n"
+                                             + "3, 2, 1 otviram!\n"
+                                             + ".....\n"
+                                             + "Nejak mi neni dobre, myslim, ze jit ven bez ochranneho obleku nebyl nejlepsi napad....\n"
+                                             + "Ja....nemuzu dychat!!! NEMUZU.....!!";
                                      hra.setKonecHry(true);
-                                     return ("Nejak mi neni dobre, myslim, ze jit ven bez ochranneho obleku nebyl nejlepsi napad....\n" +
-                                     "Ja....nemuzu dychat!!! NEMUZU.....!!");
+                                     return odpoved;
                             }
                     case "auto":
-                         System.out.println("RIDIC : CO MI LEZES DO AUTA??\n\n" + 
-                            "JA...OMLOUVAM SE, JEN SE POTREBUJU DOSTAT NA LETISTE, STEJNE JAKO VY..PROSIM, POMOZTE MI\n\n"+ 
-                            "RIDIC : NO DOBRE, MOZNA BYCH TU MEL JESTE MISTO....ALE V TYHLE SITUACI TO NEBUDE ZADARMO!!\n" + 
-                            "VEZMU TE S SEBOU ZA NECO K JIDLU\n");
+                         odpoved = "RIDIC : Koukej vypadnout od myho auta\n\n" + 
+                            "Ja, omlouvam se, jen se potrebuju dostat na letiste, stejne jako vy. Prosim, POMOZTE MI\n\n"+ 
+                            "RIDIC : No dobre, moznabych tu mel jeste misto...Ale v tyhle situaci to nebude zadarmo!\n" + 
+                            "Par dni uz jsem nejedl, vezmu te za neco k jidlu\n\n";
                         if(inventar.jeVInventari("konzerva")){
-                            System.out.println(inventar.obsahInventare()+"\n");
-                            System.out.println("JASNE...TADY, MAM U SEBE TUHLE KONZERVU! BERTE...\n\n" + 
-                                                "RIDIC : NO DOBRE, NASTUP SI\n");
+                            odpoved += inventar.obsahInventare()+"\n";
+                            System.out.println("Jasne, tady...mam u sebe tuhle konzervu\n\n" + 
+                                                "RIDIC : Fajn, nastup si.\n");
                             plan.setAktualniProstor(sousedniProstor);
+                            odpoved += sousedniProstor.dlouhyPopis();
                             hra.setKonecHry(true);
-                            return sousedniProstor.dlouhyPopis();
+                            return odpoved;
                         }else{
-                            System.out.println(inventar.obsahInventare());
-                            return "NO..JA...NIC U SEBE NEMAM...ALE POCKEJTE, V BUNKRU JE SPOUSTA JIDLA, NECO SEZENU!!\n";
+                            odpoved += inventar.obsahInventare()+"\n No..ja..nic u sebe nemam. Ale pockejte, v bunkru urcite bude neco k jidlu!\n";
+                            return odpoved;
                         }
                     default:
                         plan.setAktualniProstor(sousedniProstor); 
-                        return sousedniProstor.dlouhyPopis();
+                        odpoved = sousedniProstor.dlouhyPopis();
+                        return odpoved;
                 }
             }
         }
+        return "";
     }
     
     /**

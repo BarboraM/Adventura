@@ -36,17 +36,17 @@ public class HerniPlan implements Subject {
      */
     private void zalozProstoryHry() {
         // vytvářejí se jednotlivé prostory
-        Prostor pokoj = new Prostor("pokoj", "pokoj", 0, 0);
-        Prostor koupelna = new Prostor("koupelna", "koupelna.\n Myslis, ze je spravna doba se ted sprchovat?", 0, 0);
-        Prostor sklad = new Prostor("sklad", "sklad", 0, 0);
-        Prostor jidelna = new Prostor("jidelna", "jidelna", 0, 0);
-        Prostor spolecenskaMistnost = new Prostor("spol.mistnost", "spol.mistnost", 0, 0);
-        Prostor schodiste = new Prostor("schodiste", "schodiste", 0, 0);
-        Prostor prechodovaKomora = new Prostor("prechod.komora", "prechodova komora. \nBunkr je hned u hlavni silnice, ta by nas mela dovest k letisti...\n", 0, 0);
+        Prostor pokoj = new Prostor("pokoj", "pokoj", 50.0, 200.0);
+        Prostor koupelna = new Prostor("koupelna", "koupelna.\n Myslis, ze je spravna doba se ted sprchovat?", 53.0, 51.0);
+        Prostor sklad = new Prostor("sklad", "sklad", 220.0, 20.0);
+        Prostor jidelna = new Prostor("jidelna", "jidelna", 348.0, 48.0);
+        Prostor spolecenskaMistnost = new Prostor("spol.mistnost", "spol.mistnost", 190.0, 150.0);
+        Prostor schodiste = new Prostor("schodiste", "schodiste", 380.0, 260.0);
+        Prostor chodba = new Prostor("chodba", "chodba. \nBunkr je hned u hlavni silnice, ta by nas mela dovest k letisti...\n", 290.0, 400.0);
         Prostor silnice = new Prostor("silnice", "silnice. \nFajn, doufam, ze to odtud neni daleko, moc casu nemame...\n"
-                                        + "Pockat, neni tamhle auto?!", 0, 0);                                
+                                        + "Pockat, neni tamhle auto?!", 240.0, 310.0);                                
         Prostor auto = new Prostor("auto", "auto. \n Konecne! Odsud uz by to mel byt jen kousek.\n" + "Uz vidim letiste!!!\n" + 
-                                    "Dokazali jsme to!!!  Jsem v bezpeci!!", 0, 0);
+                                    "Dokazali jsme to!!!  Jsem v bezpeci!!", 150.0, 310.0);
        
        
         
@@ -60,12 +60,12 @@ public class HerniPlan implements Subject {
         sklad.setVychod(koupelna);
         sklad.setVychod(jidelna);
         koupelna.setVychod(sklad);
-        schodiste.setVychod(prechodovaKomora);
+        schodiste.setVychod(chodba);
         schodiste.setVychod(jidelna);
-        prechodovaKomora.setVychod(silnice);
-        prechodovaKomora.setVychod(schodiste);
+        chodba.setVychod(silnice);
+        chodba.setVychod(schodiste);
         silnice.setVychod(auto);
-        auto.setVychod(prechodovaKomora);
+        auto.setVychod(chodba);
         
         // vytvářejí se jednotlivé věci
         Vec zaves = new Vec("zaves",true, false);
@@ -104,8 +104,7 @@ public class HerniPlan implements Subject {
         return aktualniProstor;
         
     }
-    
-    
+        
     /**
      *  Metoda nastaví aktuální prostor, používá se nejčastěji při přechodu mezi prostory
      *
@@ -114,7 +113,6 @@ public class HerniPlan implements Subject {
     public void setAktualniProstor(Prostor prostor) {
        aktualniProstor = prostor;
        notifyObservers();
-       
     }
 
     @Override
@@ -126,7 +124,6 @@ public class HerniPlan implements Subject {
     public void registerObserver(Observer observer) {
         listObserveru.add(observer);
     }
-    
 
     @Override
     public void notifyObservers() {

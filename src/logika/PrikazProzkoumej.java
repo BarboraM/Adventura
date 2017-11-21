@@ -38,6 +38,7 @@ public class PrikazProzkoumej implements IPrikaz
      *  
      */
     public String proved(String... parametry){
+        String odpoved;
         if(parametry.length == 0){
             return plan.getAktualniProstor().getPopisVeci();
         }       
@@ -45,34 +46,42 @@ public class PrikazProzkoumej implements IPrikaz
         Prostor aktualni = plan.getAktualniProstor();        
         Vec prozkoumavana = aktualni.odeberVec(nazevVeci);        
         if(prozkoumavana == null){
-            return "Tuhle vec tu nevidim";
+            odpoved = "Tuhle vec tu nevidim";
+            return odpoved;
         }
         else{
             if(prozkoumavana.jeProzkoumatelna()){
                 switch (prozkoumavana.getNazev()){
                     case "knihovna": 
-                        System.out.println("Hmm...Pohadka o princezne...Italske speciality....To je ono! Pruvodce chemickym utokem!!!");
+                        odpoved = "Hmm...Pohadka o princezne...Italske speciality....To je ono! Pruvodce chemickym utokem!!!\n";
                         aktualni.vlozVec(new Vec("pohadka", false, false));
                         aktualni.vlozVec(new Vec("kucharka", false, false));
                         aktualni.vlozVec(new Vec("pruvodce", true, true));
-                        return aktualni.getPopisVeci();
+                        odpoved +=  aktualni.getPopisVeci();
+                        return odpoved;
                     case "matrace" : 
-                        System.out.println("Co na ni muze byt zajimaveho?...Pockat, co je to tu pod ni?! Klice!");
+                        odpoved = "Co na ni muze byt zajimaveho?...Pockat, co je to tu pod ni?! Klice!\n";
                         aktualni.vlozVec(new Vec("klice", true, false));
-                        return aktualni.getPopisVeci();
+                        odpoved += aktualni.getPopisVeci();
+                        return odpoved;
                     case "pruvodce" :
-                        return "'Jak vytvorit ochranny oblek: Pro pohyb v kontaminovanem prostredi je nutne vytvorit ochranny oblek slepenim nekolika kusu neprodysne latky....'\n"
-                        + "No dobre, techhle par veci tu urcite nekde sezenu..";
+                        odpoved = "'Jak vytvorit ochranny oblek: Pro pohyb v kontaminovanem prostredi je nutne vytvorit ochranny oblek slepenim nekolika kusu neprodysne latky....'\n"
+                        + "No dobre, techhle par veci tu urcite nekde sezenu..\n";
+                        return odpoved;
                     case "kredenc" :
-                        System.out.println("1.suplik nic...2.suplik nic...V poslednim jsou jen nuzky..");
+                        odpoved = "1.suplik nic...2.suplik nic...V poslednim jsou jen nuzky..\n";
                         aktualni.vlozVec(new Vec("nuzky", true, false));
-                        return aktualni.getPopisVeci();
-                    default: return "Nic zvlastniho tu nevidim";
+                        odpoved += aktualni.getPopisVeci();
+                        return odpoved;
+                    default: 
+                        odpoved = "Nic zvlastniho tu nevidim";
+                        return odpoved;
                 }
             }
             else{
                 aktualni.vlozVec(prozkoumavana);
-                return "Nic zvlastniho nevidim";
+                odpoved = "Nic zvlastniho nevidim";
+                return odpoved;
             }
         }
     }

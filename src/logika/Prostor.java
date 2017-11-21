@@ -138,14 +138,19 @@ public class Prostor {
      */
     public String dlouhyPopis() {
         if(this.getNazev().equals("auto")){
-            return "____________________________________________________________________________________________________ " + "\n"+ "\t\t\t Jsem v mistnosti/prostoru " 
+            return ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . " + 
+                    ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . " + 
+
+                    "\n\t\t\t Jsem v mistnosti/prostoru " 
                 + popis + ".\n";
             }else{
-                return "____________________________________________________________________________________________________ " + "\n"+ "\t\t\t Jsem v mistnosti/prostoru " 
+                return ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . " + 
+                    ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . " + 
+
+                    "\n\t\t\t Jsem v mistnosti/prostoru " 
                 + popis + ".\n"
                 + popisVychodu() + "\n"
-                + popisVeci() + "\n"
-                + ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . "+ "\n";
+                + popisVeci() + "\n";
             }
     }
     
@@ -252,6 +257,11 @@ public class Prostor {
      */
     public String getPopisVeci(){
         return popisVeci();
+    }
+    
+    @Override
+    public String toString() {
+        return this.nazev;
     }
  
 }

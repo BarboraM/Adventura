@@ -5,6 +5,8 @@
  */
 package GUI;
 
+import java.util.stream.Collectors;
+import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -29,20 +31,14 @@ public class Mapa extends AnchorPane implements Observer{
     }
     
     public void init(){
-        ImageView obrazekImageView = new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/mapa.jpg"),200,200,false,true));
-    
-        tecka = new Circle(10, Paint.valueOf("red"));
-        
-    //    this.setTopAnchor(tecka, 25.0);
-    //    this.setLeftAnchor(tecka, 100.0);
-        
+        ImageView obrazekImageView = new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/mapa.jpg"),600,400,false,true));
+        tecka = new Circle(10, Paint.valueOf("red"));      
         this.getChildren().addAll(obrazekImageView, tecka);
         update();
     }
     
     public void newGame(IHra novaHra){
-        hra.getHerniPlan().removeObserver(this);
-        
+        hra.getHerniPlan().removeObserver(this);       
         hra = novaHra;
         hra.getHerniPlan().registerObserver(this);
         update();
@@ -52,7 +48,5 @@ public class Mapa extends AnchorPane implements Observer{
     public void update(){ 
         this.setTopAnchor(tecka, hra.getHerniPlan().getAktualniProstor().getPosTop());
         this.setLeftAnchor(tecka, hra.getHerniPlan().getAktualniProstor().getPosLeft());
-    }
-    
-    
+    }  
 }

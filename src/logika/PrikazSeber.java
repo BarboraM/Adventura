@@ -42,25 +42,33 @@ public class PrikazSeber implements IPrikaz
      *  
      */
     public String proved(String... parametry){
+        String odpoved;
         if(parametry.length == 0){
-            return "Co mam sebrat?";
+            odpoved = "Co mam sebrat?";
+            return odpoved;
         }       
         String nazevSbiraneVeci = parametry[0];        
         Prostor aktualni = plan.getAktualniProstor();        
         Vec sbirana = aktualni.odeberVec(nazevSbiraneVeci); 
         if(sbirana == null){
-            return "Tuhle vec tu nevidim";
+            odpoved = "Tuhle vec tu nevidim";
+            return odpoved;
         }else{
            if(sbirana.jePrenositelna()){
                 if(inventar.vlozVec(sbirana)){
-                    System.out.println("Sebrano");
                     if(inventar.jeVInventari(LEPENKA)&&inventar.jeVInventari(ZAVES)&&inventar.jeVInventari(PRUVODCE)&&inventar.jeVInventari(NUZKY)){
-                            this.vytvorOblek();
+                            odpoved = this.vytvorOblek();
+                            odpoved = "Sebrano\n" + odpoved;
+                            return odpoved;
+                    } else{
+                        odpoved = "Sebrano";
+                        return odpoved;
                     }
                 }
             }else{
                  aktualni.vlozVec(sbirana);
-                 return "Tohle nam k nicemu nebude \n";
+                 odpoved = "Tohle nam k nicemu nebude \n";
+                 return odpoved;
            }
         }
         return "";
@@ -72,15 +80,14 @@ public class PrikazSeber implements IPrikaz
      *  @return Vrací oblek do inventáře
      */
     public String vytvorOblek(){
-        inventar.vlozVec(new Vec("oblek", true, false));
         inventar.odeberVec(NUZKY);
         inventar.odeberVec(ZAVES);
         inventar.odeberVec(LEPENKA);
         inventar.odeberVec(PRUVODCE);
-        System.out.println("Tak to by bylo...Lepenka, nuzky a zaves - z toho bude podle pruvodce paradni ochrannej skafandr!\n" +
-                            "Tady to staci trochu strihnout......slepit......a je to! Mame oblek!");
-        return inventar.obsahInventare();            
-        
+        inventar.vlozVec(new Vec("oblek", true, false));
+        return "\nTak to by bylo...Lepenka, nuzky a zaves - z toho bude podle pruvodce paradni ochrannej skafandr!\n" +
+                            "Tady to staci trochu strihnout......slepit......a je to! Mame oblek!";
+        //return inventar.obsahInventare();              
     }
    
 

@@ -5,8 +5,10 @@
  */
 package main;
 
+import GUI.AktualniInventar;
 import GUI.Mapa;
 import GUI.MenuLista;
+import GUI.OkolniProstory;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -37,36 +39,74 @@ import uiText.TextoveRozhrani;
  * @author Barbora
  */
 public class Main extends Application {
-    
-    private TextArea centralText;
     private IHra hra;
+    private Stage stage;
+    private TextArea centralText;
+    private TextField zadejPrikazTextArea;  
+    private Mapa mapa;
+    private OkolniProstory okolniProstory;
+    private AktualniInventar aktualniInventar;
+    private MenuLista menuLista;
+    
 
     public void setHra(IHra hra) {
         this.hra = hra;
     }
-    private TextField zadejPrikazTextArea;
-    
-    private Mapa mapa;
-    private MenuLista menuLista;
-    
-    private Stage stage;
-    
-    
     
     @Override
     public void start(Stage primaryStage) {
         this.stage = primaryStage;
         hra = new Hra();
         mapa = new Mapa(hra);
+        okolniProstory = new OkolniProstory(hra);
+        aktualniInventar = new AktualniInventar(hra);
         menuLista = new MenuLista(hra, this);
         
-        BorderPane borderPane = new BorderPane();
+        BorderPane borderPane = new BorderPane(); 
+        borderPane.setPrefWidth(800.0);
         
+        BorderPane mainArea = new BorderPane();  
+        
+        borderPane.setTop(menuLista);                       //BP TOP
+
+        
+        mainArea.setCenter(mapa);                          // MA CENTER
+        mainArea.setRight(okolniProstory); 
+        okolniProstory.setPrefWidth(150.0);                 //MA RIGHT
+        
+        //prozatim
+        TextArea leftText = new TextArea();                   //MA LEFT
+        mainArea.setLeft(leftText);   
+        leftText.setPrefWidth(100.0);
+        leftText.setMaxHeight(400.0);
+        
+        mainArea.setTop(aktualniInventar);
+        aktualniInventar.setAlignment(Pos.CENTER);
+        aktualniInventar.setMinWidth(800.0);
+        mainArea.getTop().setStyle("-fx-background-image: url(\"/zdroje/cloverfield.jpg/\");-fx-background-size: 830, 70;-fx-background-repeat: no-repeat;");
+        
+                
         //text s prubehem hry
         centralText = new TextArea();
         centralText.setText(hra.vratUvitani());
         centralText.setEditable(false);
-        borderPane.setCenter(centralText);
+        centralText.setPrefHeight(130.0);
+        centralText.setPrefWidth(800.0);
+        
+        mainArea.setBottom(centralText);                        //MA BOTTOM
+        mainArea.setAlignment(centralText, Pos.CENTER);  
+             
+        borderPane.setCenter(mainArea);                 //BP CENTER
+        
+        /*
+        //prozatim
+        TextArea leftTextBP = new TextArea();           //BP LEFT
+        borderPane.setLeft(leftTextBP);
+        leftTextBP.setPrefWidth(50.0);
+       
+        TextArea rightTextBP = new TextArea();              //BP RIGHT
+        borderPane.setRight(rightTextBP);
+        */
         
         //label s textem zadej prikaz
         Label zadejPrikazLabel = new Label("Zadej prikaz:");
@@ -81,7 +121,7 @@ public class Main extends Application {
                 String vstupniPrikaz = zadejPrikazTextArea.getText();
                 String odpovedHry = hra.zpracujPrikaz(vstupniPrikaz);
                 
-                centralText.appendText("\n" + vstupniPrikaz + "\n");
+                centralText.appendText("\n>>> " + vstupniPrikaz + "\n");
                 centralText.appendText("\n" + odpovedHry + "\n");
                 zadejPrikazTextArea.setText("");
                 
@@ -94,16 +134,16 @@ public class Main extends Application {
                
         //dolni lista s elementy
         FlowPane dolniLista = new FlowPane();
-        dolniLista.setAlignment(Pos.CENTER);
         dolniLista.getChildren().addAll(zadejPrikazLabel, zadejPrikazTextArea);
+         
+        borderPane.setBottom(dolniLista);                   //BP BOTTOM
+        dolniLista.setAlignment(Pos.CENTER);
+        dolniLista.setPrefHeight(30.0);
+        dolniLista.setMaxHeight(800.0);
         
-        borderPane.setLeft(mapa);
-        borderPane.setBottom(dolniLista);
-        borderPane.setTop(menuLista);
-
-        
-        Scene scene = new Scene(borderPane, 700, 500);      
+        Scene scene = new Scene(borderPane, 800, 650);    
         primaryStage.setTitle("Adventura");
+        primaryStage.setResizable(false);
         
         primaryStage.setScene(scene);
         primaryStage.show();

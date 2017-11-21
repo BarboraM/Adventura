@@ -40,10 +40,9 @@ public class Hra implements IHra {
      *  Vrátí úvodní zprávu pro hráče.
      */
     public String vratUvitani() {
-        return "Vitej!\n" +
-               "Potrebuju se dostat z tohohle zatracenyho bunkru a dostat se na vojenske letiste,\n" +
-               "venku je ale vysoka uroven kontaminace, budem muset vymyslet plan!'\n" +
-               "Pro napovedu napis 'napoveda'\n" +
+        return "Potrebuju se dostat z tohohle zatracenyho bunkru a dostat se na vojenske letiste, venku je ale vysoka uroven kontaminace.\n"
+                + "Budem muset vymyslet plan!\n" +
+               "Pro napovedu napis 'napoveda'\t\t\t\t\t" +
                "Pro ukonceni hry napis 'konec'\n" +
                herniPlan.getAktualniProstor().dlouhyPopis();
     }
