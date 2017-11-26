@@ -53,6 +53,7 @@ class PrikazJdi implements IPrikaz {
                         odpoved = "Vypada to, ze dvere ven jsou zamcene...";
                         if(inventar.jeVInventari("klice")){
                             odpoved += "\nZkusim pouzit ten klic z pokoje\n" + "Pasuje!\n";
+                            plan.setAktualniProstor(sousedniProstor);
                             odpoved += sousedniProstor.dlouhyPopis();  
                             return odpoved;
                         }
@@ -77,19 +78,18 @@ class PrikazJdi implements IPrikaz {
                             }
                     case "auto":
                          odpoved = "RIDIC : Koukej vypadnout od myho auta\n\n" + 
-                            "Ja, omlouvam se, jen se potrebuju dostat na letiste, stejne jako vy. Prosim, POMOZTE MI\n\n"+ 
-                            "RIDIC : No dobre, moznabych tu mel jeste misto...Ale v tyhle situaci to nebude zadarmo!\n" + 
-                            "Par dni uz jsem nejedl, vezmu te za neco k jidlu\n\n";
+                            "Ja, omlouvam se, jen se potrebuju dostat na letiste, stejne jako vy. Prosim, POMOZTE MI\n"+ 
+                            "RIDIC : No dobre, mozna bych tu mel jeste misto...Ale v tyhle situaci to nebude zadarmo!\n" + 
+                            "Par dni uz jsem nejedl, vezmu te za neco k jidlu\n";
                         if(inventar.jeVInventari("konzerva")){
-                            odpoved += inventar.obsahInventare()+"\n";
-                            System.out.println("Jasne, tady...mam u sebe tuhle konzervu\n\n" + 
-                                                "RIDIC : Fajn, nastup si.\n");
+                            odpoved += "Jasne, tady...mam u sebe tuhle konzervu\n" + 
+                                                "RIDIC : Fajn, nastup si.\n";
                             plan.setAktualniProstor(sousedniProstor);
                             odpoved += sousedniProstor.dlouhyPopis();
                             hra.setKonecHry(true);
                             return odpoved;
                         }else{
-                            odpoved += inventar.obsahInventare()+"\n No..ja..nic u sebe nemam. Ale pockejte, v bunkru urcite bude neco k jidlu!\n";
+                            odpoved += "No..ja..nic u sebe nemam. Ale pockejte, v bunkru urcite bude neco k jidlu!\n";
                             return odpoved;
                         }
                     default:

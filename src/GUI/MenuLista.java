@@ -17,7 +17,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import logika.Hra;
 import logika.IHra;
 import main.Main;
 
@@ -36,19 +35,19 @@ public class MenuLista extends MenuBar{
     }
     
     private void init(){
-        
         Menu novySoubor = new Menu("Adventura");
         Menu napoveda = new Menu("Help");
         
-        MenuItem novaHra = new MenuItem("Nova hra", new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/ikona.jpg"))));       
+        MenuItem novaHra = new MenuItem("Nova hra", new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/znovu.png"))));       
         novaHra.setAccelerator(KeyCombination.keyCombination("Ctrl+H"));
         
-        MenuItem konecHry = new MenuItem("Konec hry");
+        MenuItem konecHry = new MenuItem("Konec hry",new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/krizek.png"))));
+        novaHra.setAccelerator(KeyCombination.keyCombination("Esc"));
         
         novySoubor.getItems().addAll(novaHra, konecHry);
         
-        MenuItem oProgramu = new MenuItem("O programu");
-        MenuItem napovedaItem = new MenuItem("Napoveda");
+        MenuItem oProgramu = new MenuItem("O programu",new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/info.png"))));
+        MenuItem napovedaItem = new MenuItem("Napoveda",new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/napoveda.png"))));
         
         napoveda.getItems().addAll(oProgramu, napovedaItem);
         
@@ -66,11 +65,13 @@ public class MenuLista extends MenuBar{
             
             @Override
             public void handle(ActionEvent event){
-                hra = new Hra();
-                main.getMapa().newGame(hra);
-                main.setHra(hra);
-                main.getCentralText().setText(hra.vratUvitani());
-                
+                main.getStage().close();
+                main = new Main();
+                //hra = new Hra();
+                //main.getMapa().newGame(hra);
+               // main.setHra(hra);
+                //main.getCentralText().setText(hra.vratUvitani());  
+                main.start(new Stage());
             }
         }); 
         
@@ -81,12 +82,16 @@ public class MenuLista extends MenuBar{
                 Alert oProgramuAlert = new Alert(Alert.AlertType.INFORMATION);
                 
                 oProgramuAlert.setTitle("O programu");
-                oProgramuAlert.setHeaderText("Super adventura");
-                oProgramuAlert.setContentText("Lorem ipsum");
+                oProgramuAlert.setHeaderText("Cloverfield");
+                oProgramuAlert.setContentText("Jednoduchá adventura z prostředí ochranného bunkru. \n" +
+                                               "Úkolem hráče je dostat se pomocí zadávání jednotlivých příkazů \n" +
+                                               "z prostoru bunru na vojenské letiště. \n" +
+                                               "\n" +
+                                               "Autor : Barbora Mlejnková\n" +
+                                               "Version : 2.0");
                 oProgramuAlert.initOwner(main.getStage());
                 
-                oProgramuAlert.showAndWait();
-                
+                oProgramuAlert.showAndWait(); 
             }
         });
         
@@ -103,7 +108,6 @@ public class MenuLista extends MenuBar{
                 stage.setScene(new Scene(webView, 500, 500));
                 stage.show();
             }
-        });
-        
+        });     
     }
 }

@@ -37,16 +37,16 @@ public class HerniPlan implements Subject {
     private void zalozProstoryHry() {
         // vytvářejí se jednotlivé prostory
         Prostor pokoj = new Prostor("pokoj", "pokoj", 50.0, 200.0);
-        Prostor koupelna = new Prostor("koupelna", "koupelna.\n Myslis, ze je spravna doba se ted sprchovat?", 53.0, 51.0);
-        Prostor sklad = new Prostor("sklad", "sklad", 220.0, 20.0);
-        Prostor jidelna = new Prostor("jidelna", "jidelna", 348.0, 48.0);
+        Prostor koupelna = new Prostor("koupelna", "koupelna.\n Myslis, ze je spravna doba se ted sprchovat?", 70.0, 50.0);
+        Prostor sklad = new Prostor("sklad", "sklad", 305.0, 25.0);
+        Prostor jidelna = new Prostor("jidelna", "jidelna", 470.0, 60.0);
         Prostor spolecenskaMistnost = new Prostor("spol.mistnost", "spol.mistnost", 190.0, 150.0);
-        Prostor schodiste = new Prostor("schodiste", "schodiste", 380.0, 260.0);
-        Prostor chodba = new Prostor("chodba", "chodba. \nBunkr je hned u hlavni silnice, ta by nas mela dovest k letisti...\n", 290.0, 400.0);
+        Prostor schodiste = new Prostor("schodiste", "schodiste", 520.0, 280.0);
+        Prostor chodba = new Prostor("chodba", "chodba. \nBunkr je hned u hlavni silnice, ta by nas mela dovest k letisti...\n", 310.0, 310.0);
         Prostor silnice = new Prostor("silnice", "silnice. \nFajn, doufam, ze to odtud neni daleko, moc casu nemame...\n"
-                                        + "Pockat, neni tamhle auto?!", 240.0, 310.0);                                
+                                        + "Pockat, neni tamhle auto?!", 350.0, 370.0);                                
         Prostor auto = new Prostor("auto", "auto. \n Konecne! Odsud uz by to mel byt jen kousek.\n" + "Uz vidim letiste!!!\n" + 
-                                    "Dokazali jsme to!!!  Jsem v bezpeci!!", 150.0, 310.0);
+                                    "Dokazali jsme to!!!  Jsem v bezpeci!!", 210.0, 365.0);
        
        
         

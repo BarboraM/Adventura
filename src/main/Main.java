@@ -9,6 +9,7 @@ import GUI.AktualniInventar;
 import GUI.Mapa;
 import GUI.MenuLista;
 import GUI.OkolniProstory;
+import GUI.VeciVProstoru;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -46,7 +47,9 @@ public class Main extends Application {
     private Mapa mapa;
     private OkolniProstory okolniProstory;
     private AktualniInventar aktualniInventar;
+    private VeciVProstoru veciVProstoru;
     private MenuLista menuLista;
+
     
 
     public void setHra(IHra hra) {
@@ -58,8 +61,9 @@ public class Main extends Application {
         this.stage = primaryStage;
         hra = new Hra();
         mapa = new Mapa(hra);
-        okolniProstory = new OkolniProstory(hra);
+        okolniProstory = new OkolniProstory(hra, this);
         aktualniInventar = new AktualniInventar(hra);
+        veciVProstoru = new VeciVProstoru(hra, this);
         menuLista = new MenuLista(hra, this);
         
         BorderPane borderPane = new BorderPane(); 
@@ -74,11 +78,9 @@ public class Main extends Application {
         mainArea.setRight(okolniProstory); 
         okolniProstory.setPrefWidth(150.0);                 //MA RIGHT
         
-        //prozatim
-        TextArea leftText = new TextArea();                   //MA LEFT
-        mainArea.setLeft(leftText);   
-        leftText.setPrefWidth(100.0);
-        leftText.setMaxHeight(400.0);
+        mainArea.setLeft(veciVProstoru);   
+        veciVProstoru.setMaxWidth(80.0);
+        veciVProstoru.setMaxHeight(400.0);
         
         mainArea.setTop(aktualniInventar);
         aktualniInventar.setAlignment(Pos.CENTER);
@@ -86,27 +88,17 @@ public class Main extends Application {
         mainArea.getTop().setStyle("-fx-background-image: url(\"/zdroje/cloverfield.jpg/\");-fx-background-size: 830, 70;-fx-background-repeat: no-repeat;");
         
                 
-        //text s prubehem hry
+        //text s prubehem hrygit co
         centralText = new TextArea();
         centralText.setText(hra.vratUvitani());
         centralText.setEditable(false);
         centralText.setPrefHeight(130.0);
         centralText.setPrefWidth(800.0);
         
-        mainArea.setBottom(centralText);                        //MA BOTTOM
+        mainArea.setBottom(centralText);                        
         mainArea.setAlignment(centralText, Pos.CENTER);  
              
-        borderPane.setCenter(mainArea);                 //BP CENTER
-        
-        /*
-        //prozatim
-        TextArea leftTextBP = new TextArea();           //BP LEFT
-        borderPane.setLeft(leftTextBP);
-        leftTextBP.setPrefWidth(50.0);
-       
-        TextArea rightTextBP = new TextArea();              //BP RIGHT
-        borderPane.setRight(rightTextBP);
-        */
+        borderPane.setCenter(mainArea);                
         
         //label s textem zadej prikaz
         Label zadejPrikazLabel = new Label("Zadej prikaz:");

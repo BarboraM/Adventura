@@ -59,6 +59,9 @@ public class Vec
         return prozkoumatelnost;
     }
 
+    public void setProzkoumatelna(boolean prozkoumatelnost){
+        this.prozkoumatelnost = prozkoumatelnost;
+    }
     //== Soukromé metody (instancí i třídy) ========================================
 
 }

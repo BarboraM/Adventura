@@ -51,7 +51,6 @@ public class Inventar implements Subject
             Vec vec = odeberVec(nazev);
             plan.getAktualniProstor().vlozVec(vec);
             odpoved =  "Vyhozeno.\n";
-            notifyObservers();
             return odpoved;
         }else{
             odpoved = "Tohle v intventari nemam.\n";
@@ -86,7 +85,9 @@ public class Inventar implements Subject
      * @return  odebíraná věc z inventáře
      */ 
     public Vec odeberVec(String nazev){
-        return veciVInventari.remove(nazev);
+        Vec odebranaVec = veciVInventari.remove(nazev);
+        notifyObservers();
+        return odebranaVec;
     }
     
       /**

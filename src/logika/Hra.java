@@ -31,9 +31,7 @@ public class Hra implements IHra {
         platnePrikazy.vlozPrikaz(new PrikazSeber(herniPlan, inventar));
         platnePrikazy.vlozPrikaz(new PrikazZahod(herniPlan, inventar));
         platnePrikazy.vlozPrikaz(new PrikazProzkoumej(herniPlan, inventar));
-        platnePrikazy.vlozPrikaz(new PrikazInventar(herniPlan, inventar));
-
-        
+        platnePrikazy.vlozPrikaz(new PrikazInventar(herniPlan, inventar));   
     }
 
     /**
@@ -42,8 +40,6 @@ public class Hra implements IHra {
     public String vratUvitani() {
         return "Potrebuju se dostat z tohohle zatracenyho bunkru a dostat se na vojenske letiste, venku je ale vysoka uroven kontaminace.\n"
                 + "Budem muset vymyslet plan!\n" +
-               "Pro napovedu napis 'napoveda'\t\t\t\t\t" +
-               "Pro ukonceni hry napis 'konec'\n" +
                herniPlan.getAktualniProstor().dlouhyPopis();
     }
     

@@ -44,7 +44,7 @@ public class PrikazProzkoumej implements IPrikaz
         }       
         String nazevVeci = parametry[0];        
         Prostor aktualni = plan.getAktualniProstor();        
-        Vec prozkoumavana = aktualni.odeberVec(nazevVeci);        
+        Vec prozkoumavana = aktualni.vratVec(nazevVeci);        
         if(prozkoumavana == null){
             odpoved = "Tuhle vec tu nevidim";
             return odpoved;
@@ -57,11 +57,13 @@ public class PrikazProzkoumej implements IPrikaz
                         aktualni.vlozVec(new Vec("pohadka", false, false));
                         aktualni.vlozVec(new Vec("kucharka", false, false));
                         aktualni.vlozVec(new Vec("pruvodce", true, true));
+                        prozkoumavana.setProzkoumatelna(false);
                         odpoved +=  aktualni.getPopisVeci();
                         return odpoved;
                     case "matrace" : 
                         odpoved = "Co na ni muze byt zajimaveho?...Pockat, co je to tu pod ni?! Klice!\n";
                         aktualni.vlozVec(new Vec("klice", true, false));
+                        prozkoumavana.setProzkoumatelna(false);
                         odpoved += aktualni.getPopisVeci();
                         return odpoved;
                     case "pruvodce" :
@@ -71,6 +73,7 @@ public class PrikazProzkoumej implements IPrikaz
                     case "kredenc" :
                         odpoved = "1.suplik nic...2.suplik nic...V poslednim jsou jen nuzky..\n";
                         aktualni.vlozVec(new Vec("nuzky", true, false));
+                        prozkoumavana.setProzkoumatelna(false);
                         odpoved += aktualni.getPopisVeci();
                         return odpoved;
                     default: 

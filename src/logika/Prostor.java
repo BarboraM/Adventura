@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
+import utils.Subject;
 
 
 /**
@@ -23,7 +24,7 @@ import java.util.HashMap;
  * @author Michael Kolling, Lubos Pavlicek, Jarmila Pavlickova
  * @version pro školní rok 2015/2016 LS
  */
-public class Prostor {
+public class Prostor implements Subject{
 
     private String nazev;
     private String popis;
@@ -31,6 +32,8 @@ public class Prostor {
     private Map<String, Vec> veci;
     private double posLeft;
     private double posTop;
+    
+    private List<utils.Observer> listObserveru = new ArrayList<utils.Observer>();
     
     
     /**
@@ -227,6 +230,7 @@ public class Prostor {
      */
     public void vlozVec(Vec neco){
         veci.put(neco.getNazev(),neco);
+        notifyObservers();
     }
     
        /**
@@ -236,9 +240,11 @@ public class Prostor {
      * @return Odebírání nové věci
      */
     public Vec odeberVec(String nazev){
-        return veci.remove(nazev);
+        Vec odebrana = veci.remove(nazev);
+        notifyObservers();
+        return odebrana;
     }
-    
+
        /**
      * Vrátí odkaz na věc ze seznamu všech věcí. Věc je vyhledávána podle názvu.
      * 
@@ -259,9 +265,30 @@ public class Prostor {
         return popisVeci();
     }
     
+    public Map<String, Vec> getVeciZProstoru(){
+        return veci;
+    }
+    
     @Override
     public String toString() {
         return this.nazev;
+    }
+    
+        @Override
+    public void removeObserver(utils.Observer observer) {
+        listObserveru.remove(observer);
+    }
+
+    @Override
+    public void registerObserver(utils.Observer observer) {
+        listObserveru.add(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (utils.Observer listObserveruItem : listObserveru) {
+            listObserveruItem.update();
+        }
     }
  
 }
