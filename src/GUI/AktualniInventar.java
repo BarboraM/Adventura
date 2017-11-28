@@ -26,7 +26,9 @@ public class AktualniInventar extends FlowPane implements Observer{
     private Map<String, Vec> veciZInventare;
     private ImageView[] images;
     
-    
+    /**
+     *  Vytváří aktuální inventář a registruje observer k inventáři
+     */    
     public AktualniInventar(IHra hra){
         this.hra = hra; 
         hra.getInventar().registerObserver(this); 
@@ -34,6 +36,9 @@ public class AktualniInventar extends FlowPane implements Observer{
         init();
     }
     
+    /**
+     *  Zakládá v aktuálním inventáři jednotlivé obrázky
+     */
     public void init(){
         this.images = new ImageView[5];
         for (int i=0; i<images.length; i++) {
@@ -41,11 +46,14 @@ public class AktualniInventar extends FlowPane implements Observer{
             images[i].setImage(new Image(Main.class.getResourceAsStream("/zdroje/prazdny.jpg"),65,65,false,true));
         } 
         this.getChildren().addAll(images);
+        update();
     }
-
+    
+    /**
+     *  Aktualizuje inventář a jeho zobrazení
+     */
     @Override
     public void update(){   
-        //veciZInventare.clear();
         for (int i=0; i<images.length; i++) {
             images[i].setImage(new Image(Main.class.getResourceAsStream("/zdroje/prazdny.jpg"),65,65,false,true));
         } 

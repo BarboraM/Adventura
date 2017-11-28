@@ -29,35 +29,44 @@ public class VeciVProstoru extends FlowPane implements Observer{
     private ImageView[] images;
     private Main main;
     
-    
-    
+    /**
+     *  Vytváří seznam aktuálních věcí v místnosti a registruje observer k hernímu plánu a aktuální místnosti
+     */       
     public VeciVProstoru(IHra hra, Main main){
         this.main = main;
         this.hra = hra;
         hra.getHerniPlan().registerObserver(this);
         hra.getHerniPlan().getAktualniProstor().registerObserver(this);
         veciZMistnosti = new HashMap<String, Vec>();
-        this.images = new ImageView[5];
-        for (int i=0; i<images.length; i++) {
-            images[i] = new ImageView();
-        }
-        this.getChildren().addAll(images);
+
         init();
     }
     
+    /**
+     *  Zakládá v seznamu aktuálních věcí v místnosti jednotlivé obrázky
+     */
     public void init(){
+        this.images = new ImageView[5];
         for (int i=0; i<images.length; i++) {
-            images[i].setImage(new Image(Main.class.getResourceAsStream("/zdroje/prazdny.jpg"),80, 80,false,true));   
-        }
+            images[i] = new ImageView();
+            images[i].setImage(new Image(Main.class.getResourceAsStream("/zdroje/prazdny.jpg"),80, 80,false,true)); 
+        }        
+        this.getChildren().addAll(images);
         update();
     }
+    
+    public void setInactive(){
 
+    }
+
+    /**
+     *  Aktualizuje seznam aktuálních věcí v místnosti a jeho zobrazení
+     */
     @Override
     public void update(){
         hra.getHerniPlan().getAktualniProstor().removeObserver(this);
         for (int i=0; i<images.length; i++) {
             images[i].setImage(new Image(Main.class.getResourceAsStream("/zdroje/prazdny.jpg"),80, 80,false,true));   
-            images[i].setAccessibleText("prazdny");
         }
         veciZMistnosti = hra.getHerniPlan().getAktualniProstor().getVeciZProstoru();
         int index = 0;

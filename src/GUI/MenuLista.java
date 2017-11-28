@@ -28,30 +28,38 @@ public class MenuLista extends MenuBar{
     private IHra hra;
     private Main main;
     
+    
     public MenuLista(IHra hra, Main main){
         this.hra = hra;
         this.main = main;
         init();
     }
     
+    /**
+     *  Vytváří lištu menu a její položky
+     */
     private void init(){
-        Menu novySoubor = new Menu("Adventura");
-        Menu napoveda = new Menu("Help");
         
+        //dvě položky menu
+        Menu moznosti = new Menu("Moznosti");        
+
         MenuItem novaHra = new MenuItem("Nova hra", new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/znovu.png"))));       
         novaHra.setAccelerator(KeyCombination.keyCombination("Ctrl+H"));
-        
+           
         MenuItem konecHry = new MenuItem("Konec hry",new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/krizek.png"))));
         novaHra.setAccelerator(KeyCombination.keyCombination("Esc"));
         
-        novySoubor.getItems().addAll(novaHra, konecHry);
+        moznosti.getItems().addAll(novaHra, konecHry);
+        
+        Menu napoveda = new Menu("Help");
         
         MenuItem oProgramu = new MenuItem("O programu",new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/info.png"))));
         MenuItem napovedaItem = new MenuItem("Napoveda",new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/napoveda.png"))));
         
         napoveda.getItems().addAll(oProgramu, napovedaItem);
         
-        this.getMenus().addAll(novySoubor, napoveda);
+        this.getMenus().addAll(moznosti, napoveda);
+        
         
         konecHry.setOnAction(new EventHandler<ActionEvent>() {
             
@@ -88,7 +96,7 @@ public class MenuLista extends MenuBar{
                                                "z prostoru bunru na vojenské letiště. \n" +
                                                "\n" +
                                                "Autor : Barbora Mlejnková\n" +
-                                               "Version : 2.0");
+                                               "Verze : 2.0");
                 oProgramuAlert.initOwner(main.getStage());
                 
                 oProgramuAlert.showAndWait(); 

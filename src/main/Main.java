@@ -66,17 +66,19 @@ public class Main extends Application {
         veciVProstoru = new VeciVProstoru(hra, this);
         menuLista = new MenuLista(hra, this);
         
+        //vnější border pane
         BorderPane borderPane = new BorderPane(); 
         borderPane.setPrefWidth(800.0);
         
-        BorderPane mainArea = new BorderPane();  
-        
-        borderPane.setTop(menuLista);                       //BP TOP
+        borderPane.setTop(menuLista);                      
 
+        //vnitřní border pane
+        BorderPane mainArea = new BorderPane();
         
-        mainArea.setCenter(mapa);                          // MA CENTER
+        mainArea.setCenter(mapa);                          
+        
         mainArea.setRight(okolniProstory); 
-        okolniProstory.setPrefWidth(150.0);                 //MA RIGHT
+        okolniProstory.setPrefWidth(150.0);                
         
         mainArea.setLeft(veciVProstoru);   
         veciVProstoru.setMaxWidth(80.0);
@@ -86,9 +88,8 @@ public class Main extends Application {
         aktualniInventar.setAlignment(Pos.CENTER);
         aktualniInventar.setMinWidth(800.0);
         mainArea.getTop().setStyle("-fx-background-image: url(\"/zdroje/cloverfield.jpg/\");-fx-background-size: 830, 70;-fx-background-repeat: no-repeat;");
-        
-                
-        //text s prubehem hrygit co
+                   
+        //text s prubehem hry
         centralText = new TextArea();
         centralText.setText(hra.vratUvitani());
         centralText.setEditable(false);
@@ -118,22 +119,24 @@ public class Main extends Application {
                 zadejPrikazTextArea.setText("");
                 
                 if(hra.konecHry()){
-                    zadejPrikazTextArea.setEditable(false);
-                    centralText.appendText(hra.vratEpilog());                              
+                    setKonec();                            
                 }
             }
         });
+        
+        
                
         //dolni lista s elementy
         FlowPane dolniLista = new FlowPane();
         dolniLista.getChildren().addAll(zadejPrikazLabel, zadejPrikazTextArea);
          
-        borderPane.setBottom(dolniLista);                   //BP BOTTOM
+        borderPane.setBottom(dolniLista);                   
         dolniLista.setAlignment(Pos.CENTER);
         dolniLista.setPrefHeight(30.0);
         dolniLista.setMaxHeight(800.0);
         
-        Scene scene = new Scene(borderPane, 800, 650);    
+        
+        Scene scene = new Scene(borderPane, 800, 650);
         primaryStage.setTitle("Adventura");
         primaryStage.setResizable(false);
         
@@ -142,12 +145,41 @@ public class Main extends Application {
         zadejPrikazTextArea.requestFocus();
     }
 
+    /**
+     * vrátí aktuální mapu
+     *  
+     *  @return     odkaz na mapu
+     */
     public Mapa getMapa() {
         return mapa;
     }
     
+    /**
+     * nastaví okno pro zpracování příkazů jako neaktivní
+     *  
+     */
+    public void setKonec(){
+        zadejPrikazTextArea.setEditable(false);
+        //okolniProstory.setInactive
+        //veciVProstoru.setInactive
+    }
+    
+    /**
+     * vrátí pole s hlavním textem hry
+     *  
+     *  @return     odkaz pole s hlavním textem hry
+     */
     public TextArea getCentralText() {
         return centralText;
+    }
+
+    /**
+     * vrátí odkaz na stage
+     *  
+     *  @return     odkaz na stage
+     */
+    public Stage getStage() {
+        return stage;
     }
     
     /**
@@ -167,11 +199,4 @@ public class Main extends Application {
             }    
         }  
     } 
-
-    /**
-     * @return the stage
-     */
-    public Stage getStage() {
-        return stage;
-    }
 }

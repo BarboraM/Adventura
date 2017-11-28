@@ -43,9 +43,9 @@ public class HerniPlan implements Subject {
         Prostor spolecenskaMistnost = new Prostor("spol.mistnost", "spol.mistnost", 190.0, 150.0);
         Prostor schodiste = new Prostor("schodiste", "schodiste", 520.0, 280.0);
         Prostor chodba = new Prostor("chodba", "chodba. \nBunkr je hned u hlavni silnice, ta by nas mela dovest k letisti...\n", 310.0, 310.0);
-        Prostor silnice = new Prostor("silnice", "silnice. \nFajn, doufam, ze to odtud neni daleko, moc casu nemame...\n"
-                                        + "Pockat, neni tamhle auto?!", 350.0, 370.0);                                
-        Prostor auto = new Prostor("auto", "auto. \n Konecne! Odsud uz by to mel byt jen kousek.\n" + "Uz vidim letiste!!!\n" + 
+        Prostor silnice = new Prostor("silnice", "silnice. \nFajn, doufam, ze to odtud neni daleko, moc casu nemame..."
+                                        + "Pockat, neni tamhle auto?!\n", 350.0, 370.0);                                
+        Prostor auto = new Prostor("auto", "auto. \n Konecne! Odsud uz by to mel byt jen kousek." + "Uz vidim letiste!!!\n" + 
                                     "Dokazali jsme to!!!  Jsem v bezpeci!!", 210.0, 365.0);
        
        

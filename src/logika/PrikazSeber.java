@@ -86,8 +86,7 @@ public class PrikazSeber implements IPrikaz
         inventar.odeberVec(PRUVODCE);
         inventar.vlozVec(new Vec("oblek", true, false));
         return "\nTak to by bylo...Lepenka, nuzky a zaves - z toho bude podle pruvodce paradni ochrannej skafandr!\n" +
-                            "Tady to staci trochu strihnout......slepit......a je to! Mame oblek!";
-        //return inventar.obsahInventare();              
+                            "Tady to staci trochu strihnout......slepit......a je to! Mame oblek!";             
     }
    
 

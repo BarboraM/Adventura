@@ -22,18 +22,25 @@ public class Mapa extends AnchorPane implements Observer{
     public IHra hra;
     private Circle tecka;
     
+    /**
+     *  Registruje observer k hernímu plánu
+     */  
     public Mapa(IHra hra){
         this.hra = hra; 
         hra.getHerniPlan().registerObserver(this);
         init();
     }
     
+    /**
+     *  Vytváří mapu a ukazatel místnosti
+     */  
     public void init(){
         ImageView obrazekImageView = new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/mapa.jpg"),620,400,false,true));
         tecka = new Circle(10, Paint.valueOf("red"));      
         this.getChildren().addAll(obrazekImageView, tecka);
         update();
     }
+    
     
     public void newGame(IHra novaHra){
         hra.getHerniPlan().removeObserver(this);       
@@ -42,6 +49,9 @@ public class Mapa extends AnchorPane implements Observer{
         update();
     }
     
+    /**
+     *  Aktualizuje umístění ukazatele aktuální místnosti
+     */ 
     @Override
     public void update(){ 
         this.setTopAnchor(tecka, hra.getHerniPlan().getAktualniProstor().getPosTop());

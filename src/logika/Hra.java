@@ -69,22 +69,23 @@ public class Hra implements IHra {
      *@return          vrací se řetězec, který se má vypsat na obrazovku
      */
      public String zpracujPrikaz(String radek) {
-        String [] slova = radek.split("[ \t]+");
-        String slovoPrikazu = slova[0];
-        String []parametry = new String[slova.length-1];
-        for(int i=0 ;i<parametry.length;i++){
-            parametry[i]= slova[i+1];   
-        }
-        String textKVypsani=" .... ";
-        if (platnePrikazy.jePlatnyPrikaz(slovoPrikazu)) {
-            IPrikaz prikaz = platnePrikazy.vratPrikaz(slovoPrikazu);
-            textKVypsani = prikaz.proved(parametry);
+        if(!konecHry()){
+            String [] slova = radek.split("[ \t]+");
+            String slovoPrikazu = slova[0];
+            String []parametry = new String[slova.length-1];
+            for(int i=0 ;i<parametry.length;i++){
+                parametry[i]= slova[i+1];   
             }
-        
-        else {
-            textKVypsani="Nevim, co tim mysis. Tenhle prikaz neznam ";
+            String textKVypsani=" .... ";
+            if (platnePrikazy.jePlatnyPrikaz(slovoPrikazu)) {
+                IPrikaz prikaz = platnePrikazy.vratPrikaz(slovoPrikazu);
+                textKVypsani = prikaz.proved(parametry);
+            } else {
+                textKVypsani="Nevim, co tim mysis. Tenhle prikaz neznam ";
+            }
+            return textKVypsani;
         }
-        return textKVypsani;
+       return "Hra skoncila";
     }
     
     

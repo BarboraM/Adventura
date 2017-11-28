@@ -40,7 +40,7 @@ class PrikazJdi implements IPrikaz {
         String odpoved;
         if (parametry.length == 0) {
             // pokud chybí druhé slovo (sousední prostor), tak ....
-            odpoved = "Kam mam jit? Musis zadat jmeno vychodu";
+            odpoved = "Kam mam jit? Musis zadat jmeno vychodu\n";
         }else{
             String smer = parametry[0];
             // zkoušíme přejít do sousedního prostoru
@@ -63,21 +63,21 @@ class PrikazJdi implements IPrikaz {
                         }
                     case "silnice":
                             if (inventar.jeVInventari("oblek")){
-                                odpoved = "Takze, nandat oblek a otevrit dvere...Doufam, ze me oblek vazne ochrani...\n3, 2, 1 otviram!\n";
+                                odpoved = "Takze, nandat oblek a otevrit dvere...Doufam, ze me oblek vazne ochrani...3, 2, 1 otviram!\n";
                                 plan.setAktualniProstor(sousedniProstor);
                                 odpoved += sousedniProstor.dlouhyPopis();
                                 return odpoved;
                             }else{
-                                     odpoved = "Fajn, snad to tam venku zvladnem...\n"
+                                     odpoved = "Fajn, snad to tam venku zvladnem..."
                                              + "3, 2, 1 otviram!\n"
-                                             + ".....\n"
-                                             + "Nejak mi neni dobre, myslim, ze jit ven bez ochranneho obleku nebyl nejlepsi napad....\n"
-                                             + "Ja....nemuzu dychat!!! NEMUZU.....!!";
+                                             + "Nejak mi neni dobre, myslim, ze jit ven bez ochranneho obleku nebyl nejlepsi napad."
+                                             + "Ja....nemuzu dychat!!! NEMUZU.....!!\n"
+                                             + "KONEC HRY";
                                      hra.setKonecHry(true);
                                      return odpoved;
                             }
                     case "auto":
-                         odpoved = "RIDIC : Koukej vypadnout od myho auta\n\n" + 
+                         odpoved = "RIDIC : Koukej vypadnout od myho auta\n" + 
                             "Ja, omlouvam se, jen se potrebuju dostat na letiste, stejne jako vy. Prosim, POMOZTE MI\n"+ 
                             "RIDIC : No dobre, mozna bych tu mel jeste misto...Ale v tyhle situaci to nebude zadarmo!\n" + 
                             "Par dni uz jsem nejedl, vezmu te za neco k jidlu\n";
